@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Attach image here:</h1>
+
+<form id="myform" action="Home/ProcessImage" method="post">
+
+    <input type="file" id="file">
+    <input id="btn1" type="submit" value="submit" />
+</form>
+
+<script>
+    $(document).ready(function () {
+
+        $('#btn1').submit(function () {
+            $.ajax({
+                url: 'Home/ProcessImage',
+                type: 'POST',
+                timeout: '12000',
+                datatype: 'text',
+                data: myform.file.value,
+            });
+        });
+    });
+
+</script>
