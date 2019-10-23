@@ -25,7 +25,29 @@ namespace image_ai_analyser.Controllers
         public async Task<ActionResult> ProcessImage(HttpPostedFileBase file)
         {
 
-            byte[] byteData = ConvertToBytes(file);
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                file.SaveAs(filePath);
+               string jsonString = await MakeAnalysisRequest(filePath);
+
+                ImageViewModel model = Newtonsoft.Json.JsonConvert.DeserializeObject<ImageViewModel>(jsonString);
+                return View("ImageResult",model);
+            }
+
+            return View();
+        }
+
+
+
+        public ActionResult ImageResult()
+        {
+            return View();
+        }
+
+        private async Task<string> MakeAnalysisRequest(string filePath)
+        {
 
             string subscriptionKey = "4c0a252e509347d8b33ff4b18ee5fc13";
 
@@ -45,6 +67,8 @@ namespace image_ai_analyser.Controllers
 
             HttpResponseMessage response;
 
+            byte[] byteData = ConvertToBytesArray(filePath);
+
             using (ByteArrayContent content = new ByteArrayContent(byteData))
             {
                 content.Headers.ContentType =
@@ -55,28 +79,19 @@ namespace image_ai_analyser.Controllers
             }
 
             string jsonString = await response.Content.ReadAsStringAsync();
+            return jsonString;
 
-            List<ImageViewModel> model = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ImageViewModel>>(jsonString);
-
-            return View("imageResult", model);
         }
 
 
-        public ActionResult ImageResult()
+        private byte[] ConvertToBytesArray(string file)
         {
-            return View();
-        }
-
-        private static byte[] ConvertToBytes(HttpPostedFileBase file)
-        {
-            int fileSizeInBytes = file.ContentLength;
-            byte[] data = null;
-            using (var br = new BinaryReader(file.InputStream))
+            using (FileStream fileStream =
+                new FileStream(file, FileMode.Open, FileAccess.Read))
             {
-                data = br.ReadBytes(fileSizeInBytes);
+                BinaryReader binaryReader = new BinaryReader(fileStream);
+                return binaryReader.ReadBytes((int)fileStream.Length);
             }
-
-            return data;
         }
     }
 }

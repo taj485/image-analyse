@@ -5,24 +5,10 @@
 
 <h1>Attach image here:</h1>
 
-<form id="myform" action="Home/ProcessImage" method="post">
+<form action="Home/ProcessImage" method="post" enctype="multipart/form-data">
+    
+    <label for="file">FileName:</label>
+    <input type="file" name="file" id="file" />
 
-    <input type="file" id="file">
-    <input id="btn1" type="submit" value="submit" />
+    <input type="submit" />
 </form>
-
-<script>
-    $(document).ready(function () {
-
-        $('#btn1').submit(function () {
-            $.ajax({
-                url: 'Home/ProcessImage',
-                type: 'POST',
-                timeout: '12000',
-                datatype: 'text',
-                data: myform.file.value,
-            });
-        });
-    });
-
-</script>

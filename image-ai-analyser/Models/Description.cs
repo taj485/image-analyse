@@ -11,6 +11,7 @@ namespace image_ai_analyser.Models
     {
         [JsonProperty("tags")]
         public List<string> Tags { get; set; }
+
         public List<Caption> Captions { get; set; }
     }
 }
