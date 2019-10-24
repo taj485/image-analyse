@@ -1,7 +1,13 @@
-﻿
+﻿@model IEnumerable<image_ai_analyser.Models.ImageViewModel>
+
+
 @{
     ViewBag.Title = "ImageResult";
 }
 
-<h2>ImageResult</h2>
+<h1>ImageResult</h1>
 
+<img src="@Model.First().ImageString" />
+
+<h2>@Model.First().Descriptions.Captions[0].Text</h2>
+<h2>@Model.First().Descriptions.Captions[0].Confidence</h2>

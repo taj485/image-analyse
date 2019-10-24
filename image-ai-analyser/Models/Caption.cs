@@ -13,6 +13,6 @@ namespace image_ai_analyser.Models
         public string Text { get; set; }
 
         [JsonProperty("confidence")]
-        public int Confidence { get; set; }
+        public string Confidence { get; set; }
     }
 }

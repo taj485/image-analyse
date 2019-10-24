@@ -28,12 +28,20 @@ namespace image_ai_analyser.Controllers
             if (file.ContentLength > 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
-                var filePath = Path.Combine(Server.MapPath("~/App_Data/Uploads"), fileName);
+                var filePath = Path.Combine(Server.MapPath("~/images"), fileName);
                 file.SaveAs(filePath);
-               string jsonString = await MakeAnalysisRequest(filePath);
+                string jsonString = await MakeAnalysisRequest(filePath);
 
-                ImageViewModel model = Newtonsoft.Json.JsonConvert.DeserializeObject<ImageViewModel>(jsonString);
-                return View("ImageResult",model);
+                List<ImageViewModel> model = new List<ImageViewModel>();
+
+                model.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<ImageViewModel>(jsonString));
+                model.First().Image = file; 
+
+                string localPath = "/images/";
+                string localPathToImage = localPath + fileName;
+                model.First().ImageString = localPathToImage;
+
+                return View("ImageResult", model);
             }
 
             return View();
