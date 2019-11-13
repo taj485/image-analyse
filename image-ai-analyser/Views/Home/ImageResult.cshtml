@@ -2,12 +2,20 @@
 
 
 @{
-    ViewBag.Title = "ImageResult";
+    ViewBag.Title = "Image Reader";
 }
 
-<h1>ImageResult</h1>
+<h2>@Model.First().Descriptions.Captions[0].Text</h2>
 
 <img src="@Model.First().ImageString" />
 
-<h2>@Model.First().Descriptions.Captions[0].Text</h2>
-<h2>@Model.First().Descriptions.Captions[0].Confidence</h2>
+<h2> Confidence level: @Model.First().Descriptions.Captions[0].Confidence</h2>
+
+<h2>More description of the image.... :D</h2>
+
+<ul>
+    @for (int i = 0; i < Model.First().Descriptions.Tags.Count; i++)
+    {
+    <li>@Model.First().Descriptions.Tags[i]</li>
+    }
+</ul>
