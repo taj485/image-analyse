@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using image_ai_analyser.App_Start;
 
 namespace image_ai_analyser
 {
@@ -12,6 +13,7 @@ namespace image_ai_analyser
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
+            ContainerConfig.RegisterContainer();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
