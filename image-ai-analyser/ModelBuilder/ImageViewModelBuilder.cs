@@ -43,7 +43,6 @@ namespace image_ai_analyser.ModelBuilder
                 content.Headers.ContentType =
                     new MediaTypeHeaderValue("application/octet-stream");
 
-                // Asynchronously call the REST API method.
                 response = await client.PostAsync(uri, content);
             }
 
