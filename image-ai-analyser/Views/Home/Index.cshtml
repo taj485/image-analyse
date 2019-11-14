@@ -3,14 +3,4 @@
     ViewBag.Title = "Index";
 }
 
-<div id="form">
-<h1>Attach image here:</h1>
-
-    <form action="Home/ProcessImage" method="post" enctype="multipart/form-data">
-
-        <label for="file">FileName:</label>
-        <input type="file" name="file" id="file"/>
-
-        <input type="submit"/>
-    </form>
-</div>
+@Html.Partial("_ImageUploadForm")

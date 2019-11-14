@@ -23,13 +23,11 @@ namespace image_ai_analyser.Controllers
             _imageViewModelBuilder = imageViewModelBuilder;
         }
 
-        // GET: Home
         public ActionResult Index()
         {
             return View();
         }
 
-        // Post send api
         [HttpPost]
         public async Task<ActionResult> ProcessImage(HttpPostedFileBase file)
         {
@@ -53,7 +51,7 @@ namespace image_ai_analyser.Controllers
                 return View("ImageResult", model);
             }
 
-            return View();
+            return View("Index");
         }
 
 

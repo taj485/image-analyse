@@ -5,6 +5,8 @@
     ViewBag.Title = "Image Reader";
 }
 
+@Html.Partial("_ImageUploadForm")
+
 <h2>@Model.First().Descriptions.Captions[0].Text</h2>
 
 <img src="@Model.First().ImageString" />
@@ -16,6 +18,6 @@
 <ul>
     @for (int i = 0; i < Model.First().Descriptions.Tags.Count; i++)
     {
-    <li>@Model.First().Descriptions.Tags[i]</li>
+        <li>@Model.First().Descriptions.Tags[i]</li>
     }
 </ul>
