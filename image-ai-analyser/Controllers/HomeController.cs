@@ -31,6 +31,7 @@ namespace image_ai_analyser.Controllers
         [HttpPost]
         public async Task<ActionResult> ProcessImage(HttpPostedFileBase file)
         {
+            DeleteImage();
 
             if (file.ContentLength > 0)
             {
@@ -38,27 +39,31 @@ namespace image_ai_analyser.Controllers
                 var filePath = Path.Combine(Server.MapPath("~/images"), fileName);
                 file.SaveAs(filePath);
 
-                string jsonString = await  _imageViewModelBuilder.MakeAnalysisRequest(filePath);
-
                 List<ImageViewModel> model = new List<ImageViewModel>();
-                model.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<ImageViewModel>(jsonString));
+                model.Add(await _imageViewModelBuilder.MapToImageModel(filePath));
                 model.First().Image = file; 
 
                 string localPath = "/images/";
                 string localPathToImage = localPath + fileName;
                 model.First().ImageString = localPathToImage;
-
                 return View("ImageResult", model);
             }
 
             return View("Index");
         }
 
-
-
         public ActionResult ImageResult()
         {
             return View();
+        }
+
+        private void DeleteImage()
+        {
+            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/images"));
+            foreach (FileInfo img in dir.GetFiles())
+            {
+                img.Delete();
+            }
         }
     }
 }

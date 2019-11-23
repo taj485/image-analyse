@@ -1,4 +1,5 @@
-﻿using System;
+﻿using image_ai_analyser.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ namespace image_ai_analyser.Interfaces
 {
     public interface IImageViewModelBuilder
     {
-        Task<string> MakeAnalysisRequest(string filePath);
-        byte[] ConvertToBytesArray(string file);
+        Task<ImageViewModel> MapToImageModel(string jsonString);
     }
 }

@@ -145,6 +145,7 @@
     <Compile Include="Models\Description.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ImageServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

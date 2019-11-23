@@ -9,55 +9,23 @@ using System.Threading.Tasks;
 using System.Web;
 using image_ai_analyser.Interfaces;
 using image_ai_analyser.Models;
+using image_ai_analyser.Services;
 
 namespace image_ai_analyser.ModelBuilder
 {
     public class ImageViewModelBuilder : IImageViewModelBuilder
     {
+        private readonly ImageServices _imageServices;
 
-        public async Task<string> MakeAnalysisRequest(string filePath)
+        public ImageViewModelBuilder(ImageServices imageServices)
         {
-
-            string subscriptionKey = ConfigurationManager.AppSettings["subscriptionKey"];
-
-            string endpoint = ConfigurationManager.AppSettings["endpoint"];
-
-            string uriBase = endpoint + "vision/v2.1/analyze";
-
-            var client = new HttpClient();
-
-            client.DefaultRequestHeaders.Add(
-                "Ocp-Apim-Subscription-Key", subscriptionKey);
-
-            string requestParameters =
-                "visualFeatures=Categories,Description,Color";
-
-            string uri = uriBase + "?" + requestParameters;
-
-            HttpResponseMessage response;
-
-            byte[] byteData = ConvertToBytesArray(filePath);
-
-            using (ByteArrayContent content = new ByteArrayContent(byteData))
-            {
-                content.Headers.ContentType =
-                    new MediaTypeHeaderValue("application/octet-stream");
-
-                response = await client.PostAsync(uri, content);
-            }
-
-            string jsonString = await response.Content.ReadAsStringAsync();
-            return jsonString;
-
+            _imageServices = imageServices;
         }
-        public byte[] ConvertToBytesArray(string file)
+
+        public async Task<ImageViewModel> MapToImageModel(string filePath)
         {
-            using (FileStream fileStream =
-                new FileStream(file, FileMode.Open, FileAccess.Read))
-            {
-                BinaryReader binaryReader = new BinaryReader(fileStream);
-                return binaryReader.ReadBytes((int)fileStream.Length);
-            }
+            string jsonString = await _imageServices.MakeAnalysisRequestAysync(filePath);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<ImageViewModel>(jsonString);
         }
     }
 }
