@@ -31,6 +31,14 @@ namespace image_ai_analyser.Controllers
         [HttpPost]
         public async Task<ActionResult> ProcessImage(HttpPostedFileBase file)
         {
+            DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/images"));
+            foreach (FileInfo img in dir.GetFiles())
+            {
+                img.Delete();
+            }
+            
+
+
 
             if (file.ContentLength > 0)
             {
@@ -47,7 +55,6 @@ namespace image_ai_analyser.Controllers
                 string localPath = "/images/";
                 string localPathToImage = localPath + fileName;
                 model.First().ImageString = localPathToImage;
-
                 return View("ImageResult", model);
             }
 
