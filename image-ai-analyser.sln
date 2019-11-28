@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image-ai-analyser", "image-ai-analyser\image-ai-analyser.csproj", "{BDEC15CB-4D8E-4B5D-A219-BD9C007FB6D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "image-ai-analyser.Tests", "image-ai-analyser.Tests\image-ai-analyser.Tests.csproj", "{9B558C0B-2BAC-46A9-897B-FFA0230EEFDA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{BDEC15CB-4D8E-4B5D-A219-BD9C007FB6D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDEC15CB-4D8E-4B5D-A219-BD9C007FB6D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDEC15CB-4D8E-4B5D-A219-BD9C007FB6D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B558C0B-2BAC-46A9-897B-FFA0230EEFDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B558C0B-2BAC-46A9-897B-FFA0230EEFDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B558C0B-2BAC-46A9-897B-FFA0230EEFDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B558C0B-2BAC-46A9-897B-FFA0230EEFDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

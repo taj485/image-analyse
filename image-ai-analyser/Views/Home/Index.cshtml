@@ -2,4 +2,13 @@
                 ViewBag.Title = "Index";
 }
 
-@Html.Partial("_ImageUploadForm")
+<div class="row">
+    <div class="col-sm-6">
+        <img class="img-responsive" id="img" src="~/Content/insertImage.png" alt="your image" />
+    </div>
+
+    <div class="col-sm-6">
+        @Html.Partial("_ImageUploadForm")
+    </div>
+</div>
+

@@ -3,21 +3,33 @@
 
 @{
     ViewBag.Title = "Image Reader";
+    var caption = Model.First().Descriptions.Captions[0].Text.ToString();
+    var upcaseCaption = char.ToUpper(caption[0]) + caption.Substring(1);
+    var confidenceString = Model.First().Descriptions.Captions[0].Confidence;
+    var ConfidenceLevel = Math.Round(float.Parse(confidenceString) *100);
 }
 
-@Html.Partial("_ImageUploadForm")
+<div class="row">
+    <div class="col-sm-6">
+        <h2>@upcaseCaption</h2>
 
-<h2>@Model.First().Descriptions.Captions[0].Text</h2>
+        <img class="img-responsive" src="@Model.First().ImageString" />
+    </div>
 
-<img src="@Model.First().ImageString" />
+    <div class="col-sm-6">
+        @Html.Partial("_ImageUploadForm")
 
-<h2> Confidence level: @Model.First().Descriptions.Captions[0].Confidence</h2>
+        <h2> Confidence Level: @ConfidenceLevel%</h2>
 
-<h2>More description of the image.... :D</h2>
+        <h2>Image Tags:</h2>
 
-<ul>
-    @for (int i = 0; i < Model.First().Descriptions.Tags.Count; i++)
-    {
-        <li>@Model.First().Descriptions.Tags[i]</li>
-    }
-</ul>
+        <ul>
+            @for (int i = 0; i < Model.First().Descriptions.Tags.Count; i++)
+            {
+                <li>@Model.First().Descriptions.Tags[i]</li>
+            }
+        </ul>
+    </div>
+
+
+</div>
